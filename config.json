@@ -1,0 +1,92 @@
+{
+    "vhosts": {
+      "/": {
+        "connection": {
+          "url": "amqp://localhost:5672"
+        },
+        "exchanges": {
+          "exchange1": {
+            "assert": true,
+            "type": "direct"
+          },
+          "exchange2": {
+            "assert": true,
+            "type": "fanout"
+          },
+          "exchange3": {
+            "assert": true,
+            "type": "topic"
+          },
+          "exchange4": {
+            "assert": true,
+            "type": "headers"
+          }
+        },
+        "queues": ["class1","class9","class10","class11","class12"],
+        "bindings": [
+        "exchange1[class.11] -> class11",
+        "exchange1[class.10] -> class10",
+        "exchange1[class.12] -> class12",
+        "exchange1[class.1] -> class1",
+        "exchange1[class.9] -> class9",
+        "exchange2[class.9] -> class9",
+        "exchange2[class.10] -> class10",
+        "exchange2[class.11] -> class11",
+        "exchange3[class.*] -> class12",
+        "exchange3[class.*] -> class11",
+        "exchange3[class.*] -> class10",
+        "exchange3[class.*] -> class9",
+        "exchange3[class.*] -> class1"
+        
+      ],
+        "publications": {
+          "pub_direct11": {
+            "exchange": "exchange1",
+            "routingKey": "class.11"
+          },
+          "pub_direct12": {
+            "exchange": "exchange1",
+            "routingKey": "class.12"
+          },
+          "pub_direct10": {
+            "exchange": "exchange1",
+            "routingKey": "class.10"
+          },
+          "pub_direct1": {
+            "exchange": "exchange1",
+            "routingKey": "class.1"
+          },
+          "pub_direct9": {
+            "exchange": "exchange1",
+            "routingKey": "class.9"
+          },
+          "pub_topic1": {
+            "exchange": "exchange3",
+            "routingKey": "class.*"
+          }
+        },
+        "subscriptions": {
+          "sub_direct11": {
+            "queue": "class11",
+            "prefetch": 3
+          },
+          "sub_direct12": {
+            "queue": "class12",
+            "prefetch": 3
+          },
+          "sub_direct10": {
+            "queue": "class10",
+            "prefetch": 3
+          },
+          "sub_direct1": {
+            "queue": "class1",
+            "prefetch": 3
+          },
+          "sub_direct9": {
+            "queue": "class9",
+            "prefetch": 3
+          }
+        }
+      }
+    }
+  }
