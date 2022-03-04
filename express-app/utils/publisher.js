@@ -1,4 +1,5 @@
 const Broker = require('rascal').BrokerAsPromised
+// const broker = require('rascal').PublicationSession
 const config = require('../configuration/config.json');
 
 
@@ -6,18 +7,20 @@ const sendToDirectPublisher = async(name, message)=>{
     const broker = await Broker.create(config);
     broker.on('error', console.error);
     const publisherName = `pub_direct${name}`
-    const availableName = Object.keys(config.vhosts['/'].publications)
+    const availableName = Object.keys(config.vhosts['test'].publications)
     const isAvailable =()=>{ 
         for(i in availableName){
             if(availableName[i] === publisherName){
             return 1
         }
     }
-}
-   
-if(isAvailable()===1 ){
-    const publication1 = await broker.publish(publisherName, message);
-    publication1.on('error', console.error);
+    }
+   if(isAvailable()===1 ){
+        for (let i = 0; i<10000; i++) {
+        const publication1 = await broker.publish(publisherName, message);
+        publication1.on('error', console.error);
+
+        }
     }
     else{
         throw new Error('Publisher is not avaiable')
@@ -51,12 +54,7 @@ const sendToFanoutPublisher= async(name, message)=>{
         headers : {
             name : 'shubham'
         }
-    },{
-        deliveryMode : 3,
-        headers : {
-            name : 'shubham'
-        }
-    } );
+    });
     publication1.on('error', console.error);
     }
     else{

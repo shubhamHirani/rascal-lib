@@ -1,6 +1,22 @@
 {
     "vhosts": {
-      "/": {
+        "test": {
+          "publicationChannelPools": {
+              "regularPool": {
+                  "max": 1,
+                  "min": 1,
+                  "evictionRunIntervalMillis": 10000,
+                  "idleTimeoutMillis": 60000,
+                  "autostart": true
+              },
+              "confirmPool": {
+                  "max": 1,
+                  "min": 1,
+                  "evictionRunIntervalMillis": 10000,
+                  "idleTimeoutMillis": 60000,
+                  "autostart": true
+              }
+          },
         "connection": {
           "url": "amqp://guest:guest@localhost:5672"
         },
