@@ -49,12 +49,7 @@ const sendToFanoutPublisher= async(name, message)=>{
     // headers: object = {},
     // deliveryMode: number = 2
     if(isAvailable()===1 ){
-    const publication1 = await broker.publish(publisherName, message, {
-        deliveryMode : 3,
-        headers : {
-            name : 'shubham'
-        }
-    });
+    const publication1 = await broker.publish(publisherName, message);
     publication1.on('error', console.error);
     }
     else{
